@@ -1,0 +1,153 @@
+.groups-container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+h1 {
+  color: #222;
+  border-bottom: 3px solid #007bff;
+  display: inline-block;
+  margin-bottom: 40px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.count-pill {
+  background: #6c757d;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.group-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.group-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.owner-card {
+  border-top: 5px solid #007bff;
+}
+
+.member-card {
+  border-top: 5px solid #28a745;
+}
+
+.card-content {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.card-top h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.card-hint {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.admin {
+  background: #e7f3ff;
+  color: #007bff;
+}
+
+.card-footer {
+  padding: 15px 20px;
+  background: #f8f9fa;
+  border-top: 1px solid #eee;
+  border-radius: 0 0 8px 8px;
+}
+
+.btn-manage, .btn-view {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #007bff;
+}
+
+.section-divider {
+  margin: 50px 0;
+  border: 0;
+  border-top: 1px solid #eee;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  background: #fcfcfc;
+  border: 2px dashed #ddd;
+  color: #888;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #eee;
+}
+
+.btn-create-permanent {
+  background-color: #28a745; /* Success Green */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-create-permanent:hover {
+  background-color: #218838;
+}
+
+.plus-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}

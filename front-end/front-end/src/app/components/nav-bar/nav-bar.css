@@ -1,0 +1,57 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa; /* Boring professional grey */
+  border-bottom: 2px solid #007bff; /* Project primary blue */
+  font-family: Arial, sans-serif;
+}
+
+.nav-section {
+  display: flex;
+  gap: 15px;
+  flex: 1;
+}
+
+.center {
+  justify-content: center;
+}
+
+.right {
+  justify-content: flex-end;
+}
+
+.center h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Base style for all links and the logout "button" */
+a, .logout-link {
+  text-decoration: none;
+  color: #555;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer; /* Ensures the hand icon appears on logout */
+}
+
+a:hover, .logout-link:hover {
+  background-color: #e9ecef;
+  color: #007bff;
+}
+
+/* Specific hover for logout to make it look distinct from a regular page link */
+.logout-link:hover {
+  color: #dc3545; /* Optional: Subtle red hint that it's an exit action */
+}
+
+.active {
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+  border-radius: 0;
+}

@@ -1,0 +1,71 @@
+<div class="group-page-container">
+
+  <header class="group-info-card">
+    <div class="header-main">
+      <div class="title-area">
+        <h1>{{ group.group_name }}</h1>
+
+        <div class="owner-controls" *ngIf="isOwner">
+          <button [routerLink]="['/edit_group', group._id]" class="btn-edit-settings">
+            Edit Settings
+          </button>
+
+          <button [routerLink]="['/groups', group._id, 'manage-requests']" class="btn-manage-requests">
+            Manage Requests
+            <span *ngIf="group.requests?.length > 0" class="request-count">
+              {{ group.requests.length }}
+            </span>
+          </button>
+        </div>
+      </div>
+      <span class="category-badge">{{ group.category }}</span>
+    </div>
+    <p class="location-text">📍 {{ group.location }}</p>
+    <p class="description">{{ group.description }}</p>
+  </header>
+
+  <div class="content-split">
+    <section class="feed-section">
+      <div class="feed-header">
+        <h2>Community Feed</h2>
+        <button class="btn-post" [routerLink]="['/make_post']">Create Post</button>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-box">
+        {{ errorMessage }}
+      </div>
+
+      <div class="post-card" *ngFor="let post of feed">
+        <div class="post-header">
+          <h3>{{ post.post_title }}</h3>
+          <span class="date">{{ post.date_posted | date:'dd/MM/yyyy, HH:mm' }}</span>
+        </div>
+
+        <p class="author-tag">By <strong>{{ post.creator_username }}</strong></p>
+        <p class="message">{{ post.post_message }}</p>
+
+        <div class="event-details" *ngIf="post.event_button === 'Yes'">
+          <strong>Event Date:</strong> {{ post.event_date | date:'dd/MM/yyyy, HH:mm' }}
+        </div>
+
+        <div class="post-footer">
+          <a class="view-btn" [routerLink]="['/groups', group._id, post._id]">View Full Post</a>
+        </div>
+      </div>
+
+      <div *ngIf="feed && feed.length === 0" class="empty-state">
+        <p>No posts yet. Start the conversation!</p>
+      </div>
+    </section>
+
+    <aside class="sidebar-section">
+      <div class="sidebar-card" *ngIf="!isOwner">
+        <h3>Membership</h3>
+        <p>You are a member of this community.</p>
+        <button class="btn-leave" (click)="onLeaveGroup()">
+          Leave Group
+        </button>
+      </div>
+    </aside>
+  </div>
+</div>

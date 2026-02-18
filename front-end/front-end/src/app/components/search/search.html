@@ -1,0 +1,63 @@
+<div class="search-container">
+  <div class="search-header">
+    <h1>Find a Community</h1>
+  </div>
+
+  <div class="search-bar-wrapper">
+    <div class="input-group">
+      <select [(ngModel)]="searchType" class="search-type-select">
+        <option value="name">By Name</option>
+        <option value="category">By Category</option>
+      </select>
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (keyup.enter)="onSearch()"
+        placeholder="Search Alchemax..."
+        class="search-input">
+      <button (click)="onSearch()" class="btn-search">Search</button>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-box">
+    {{ errorMessage }}
+  </div>
+
+  <div class="results-grid" *ngIf="results.length > 0">
+    <div class="group-card" *ngFor="let group of results">
+      <div class="card-header">
+        <h3>{{ group.group_name }}</h3>
+        <span class="badge">{{ group.category }}</span>
+      </div>
+      <p class="location">📍 {{ group.location }}</p>
+      <p class="description">{{ group.description | slice:0:150 }}...</p>
+
+      <div class="card-footer">
+        <button
+          *ngIf="userGroups.includes(group._id) || userOwnedGroups.includes(group._id)"
+          [routerLink]="['/groups', group._id]"
+          class="btn-view">
+          View Community
+        </button>
+
+        <button
+          *ngIf="!userGroups.includes(group._id) && !userOwnedGroups.includes(group._id) && group.group_access === 'Public'"
+          (click)="joinGroup(group._id)"
+          class="btn-join">
+          Join Group
+        </button>
+
+        <button
+          *ngIf="!userGroups.includes(group._id) && !userOwnedGroups.includes(group._id) && group.group_access === 'Private'"
+          (click)="requestToJoin(group._id)"
+          class="btn-request">
+          Request to Join
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="hasSearched && results.length === 0 && !errorMessage" class="empty-results">
+    <p>No groups matched your search. Try a different term.</p>
+  </div>
+</div>

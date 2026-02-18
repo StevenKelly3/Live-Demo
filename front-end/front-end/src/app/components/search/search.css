@@ -1,0 +1,145 @@
+.search-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.search-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.search-bar-wrapper {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-bottom: 40px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+}
+
+.search-type-select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #f8f9fa;
+  cursor: pointer;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.btn-search {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0 25px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.group-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.badge {
+  background: #e7f1ff;
+  color: #007bff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.location {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 0.9rem;
+  color: #444;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+/* Button Styling */
+.btn-view, .btn-join, .btn-request {
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  text-align: center;
+}
+
+.btn-view {
+  background: #f8f9fa;
+  color: #333;
+}
+
+.btn-view:hover {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.btn-join {
+  background: #28a745;
+  color: white;
+  border-color: #28a745;
+}
+
+.btn-join:hover {
+  background: #218838;
+}
+
+.btn-request {
+  background: #ffc107;
+  color: #212529;
+  border-color: #ffc107;
+}
+
+.btn-request:hover {
+  background: #e0a800;
+}
+
+.error-box {
+  background: #f2dede;
+  color: #a94442;
+  padding: 15px;
+  border-radius: 4px;
+  text-align: center;
+  margin-bottom: 20px;
+}

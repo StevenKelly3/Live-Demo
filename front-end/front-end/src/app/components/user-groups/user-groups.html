@@ -1,0 +1,62 @@
+<div class="groups-container">
+  <div class="page-header">
+    <h1>My Groups</h1>
+    <button class="btn-create-permanent" routerLink="/create_group">
+      <span class="plus-icon">+</span> Create New Group
+    </button>
+  </div>
+
+  <section class="group-section">
+    <div class="section-header">
+      <h2>Groups You Manage</h2>
+      <span class="count-pill">{{ ownerGroups.length }}</span>
+    </div>
+
+    <div class="group-grid">
+      <div class="group-card owner-card" *ngFor="let group of ownerGroups">
+        <div class="card-content">
+          <div class="card-top">
+            <h3>{{ group.group_name }}</h3>
+            <span class="badge admin">Owner</span>
+          </div>
+          <p class="card-hint">Manage members and posts for this community.</p>
+        </div>
+
+        <div class="card-footer">
+          <a class="btn-manage" [routerLink]="['/groups', group._id]">Open Dashboard</a>
+        </div>
+      </div>
+
+      <div *ngIf="ownerGroups.length === 0" class="empty-state">
+        <p>You haven't created any groups yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <section class="group-section">
+    <div class="section-header">
+      <h2>Communities You've Joined</h2>
+      <span class="count-pill">{{ memberGroups.length }}</span>
+    </div>
+
+    <div class="group-grid">
+      <div class="group-card member-card" *ngFor="let group of memberGroups">
+        <div class="card-content">
+          <h3>{{ group.group_name }}</h3>
+          <p class="card-hint">View the latest updates from this group.</p>
+        </div>
+
+        <div class="card-footer">
+          <a class="btn-view" [routerLink]="['/groups', group._id]">View Feed</a>
+        </div>
+      </div>
+
+      <div *ngIf="memberGroups.length === 0" class="empty-state">
+        <p>You haven't joined any communities yet.</p>
+        <a routerLink="/search" class="search-link">Find a group to join</a>
+      </div>
+    </div>
+  </section>
+</div>

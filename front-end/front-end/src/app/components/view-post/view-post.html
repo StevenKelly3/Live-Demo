@@ -1,0 +1,92 @@
+<div class="view-container">
+  <div class="post-detail-card" *ngIf="post.post_title">
+
+    <div class="header">
+      <div class="title-section">
+        <h2>{{ post.post_title }}</h2>
+        <p class="group-label">Community: <strong>{{ post.group_name }}</strong></p>
+      </div>
+      <div class="date-section">
+        <span class="date-text">{{ post.date_posted | date:'dd/MM/yyyy, HH:mm' }}</span>
+      </div>
+    </div>
+
+    <div class="author-bar">
+      <span>Posted by: <strong>{{ post.creator_username }}</strong></span>
+
+      <button *ngIf="isCreator"
+              class="edit-post-btn"
+              [routerLink]="['/groups', groupId, postId, 'edit']">
+        Edit Post
+      </button>
+    </div>
+
+    <p class="main-text">{{ post.post_message }}</p>
+
+    <div class="event-info" *ngIf="post.event_button === 'Yes'">
+      <h3>Event Details</h3>
+      <p>This post is an invite to an event on <strong>{{ post.event_date | date:'dd/MM/yyyy, HH:mm' }}</strong></p>
+    </div>
+
+    <div class="actions">
+      <button class="back-btn" routerLink="/home">← Back to Feed</button>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="comments-section">
+      <h3>Discussion</h3>
+
+      <div class="comment-input-area">
+        <textarea
+          [(ngModel)]="newCommentText"
+          placeholder="Write a comment..."
+          rows="3"></textarea>
+        <button
+          class="submit-comment-btn"
+          (click)="submitComment()"
+          [disabled]="!newCommentText.trim()">
+          Post Comment
+        </button>
+      </div>
+
+      <div class="comments-list">
+        <div class="comment-card" *ngFor="let comment of post.comments">
+          <div class="comment-header">
+            <div class="comment-user-info">
+              <strong>{{ comment.username }}</strong>
+              <span class="comment-date">{{ comment.date_posted | date:'dd/MM/yyyy, HH:mm' }}</span>
+            </div>
+
+            <div class="comment-controls" *ngIf="comment.user_id === currentUserId">
+              <button (click)="startEdit(comment)" class="control-link">Edit</button>
+              <button (click)="onDeleteComment(comment._id)" class="control-link danger">Delete</button>
+            </div>
+          </div>
+
+          <div *ngIf="editingCommentId !== comment._id; else editMode">
+            <p class="comment-content">{{ comment.comment_text }}</p>
+          </div>
+
+          <ng-template #editMode>
+            <div class="inline-edit-area">
+              <textarea [(ngModel)]="editedCommentText" rows="2"></textarea>
+              <div class="edit-btn-group">
+                <button (click)="saveEdit(comment._id)" class="btn-save">Save</button>
+                <button (click)="cancelEdit()" class="btn-cancel-edit">Cancel</button>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+
+        <div *ngIf="post.comments?.length === 0" class="no-comments-msg">
+          No comments yet. Start the conversation.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-box">
+    {{ errorMessage }}
+  </div>
+</div>

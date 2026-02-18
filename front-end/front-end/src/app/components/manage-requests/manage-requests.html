@@ -1,0 +1,37 @@
+<div class="manage-wrapper">
+  <div class="header-card">
+    <button [routerLink]="['/groups', groupId]" class="btn-back">← Back to Group</button>
+    <h1>Membership Requests</h1>
+    <p>Manage users who want to join your private community.</p>
+  </div>
+
+  <div *ngIf="loading" class="loader">Loading requests...</div>
+
+  <div *ngIf="!loading && requests.length === 0" class="empty-state">
+    <h3>All caught up!</h3>
+    <p>There are no pending join requests for this group.</p>
+  </div>
+
+  <div class="request-grid" *ngIf="requests.length > 0">
+    <div class="request-card" *ngFor="let req of requests">
+      <div class="user-info">
+        <div class="avatar">{{ req.username.charAt(0).toUpperCase() }}</div>
+        <div class="details">
+          <span class="username">{{ req.username }}</span>
+          <span class="user-id">ID: {{ req.user_id | slice:0:8 }}...</span>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn-accept" (click)="onAccept(req.user_id)">
+          Accept
+        </button>
+        <button class="btn-reject" (click)="onReject(req.user_id)">
+          Reject
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="error-msg" *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>

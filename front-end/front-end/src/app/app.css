@@ -1,0 +1,5 @@
+.content-container {
+  padding: 20px;
+  /* This ensures content doesn't get hidden behind the nav if you decide to make it fixed */
+  min-height: calc(100vh - 70px);
+}

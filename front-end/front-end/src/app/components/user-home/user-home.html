@@ -1,0 +1,41 @@
+<div class="home-container">
+  <h2>Your Feed</h2>
+
+  <p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
+
+  <div class="feed-list">
+
+    <div *ngIf="feed.length === 0" class="empty-notice">
+      <p>Your feed is empty. Join some groups to see posts!</p>
+    </div>
+
+    <div class="post-card" *ngFor="let post of feed">
+
+      <div class="post-header">
+        <div class="header-main">
+          <h3>{{ post.post_title }}</h3>
+          <p class="post-meta">
+            Posted in <strong>{{ post.group_name }}</strong> by <strong>{{ post.creator_username }}</strong>
+          </p>
+        </div>
+        <span class="date-text">{{ post.date_posted | date:'dd/MM/yyyy, HH:mm' }}</span>
+      </div>
+
+      <div class="post-content">
+        <p class="post-message">{{ post.post_message }}</p>
+      </div>
+
+      <div class="event-box" *ngIf="post.event_button === 'Yes'">
+        <div class="event-tag">EVENT</div>
+        <strong>Date:</strong> {{ post.event_date | date:'dd/MM/yyyy, HH:mm' }}
+      </div>
+
+      <div class="post-footer">
+        <a class="view-link" [routerLink]="['/groups', post.group_id, post._id]">
+          View Full Details →
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

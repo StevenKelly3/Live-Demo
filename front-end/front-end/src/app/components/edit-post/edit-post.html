@@ -1,0 +1,95 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2>Edit Post</h2>
+    <p class="subtitle">Modify the details of your post below.</p>
+
+    <form (ngSubmit)="onSubmit()" #postForm="ngForm">
+
+      <div class="form-group">
+        <label>Community</label>
+        <input
+          type="text"
+          [value]="post.group_name || 'Loading...'"
+          disabled>
+        <span class="hint">Community cannot be changed after posting.</span>
+      </div>
+
+      <div class="form-group">
+        <label for="post_title">Title</label>
+        <input
+          type="text"
+          id="post_title"
+          [(ngModel)]="postData.post_title"
+          name="post_title"
+          required
+          placeholder="e.g. 24hr Le Mans setup">
+      </div>
+
+      <div class="form-group">
+        <label for="post_message">Message</label>
+        <textarea
+          id="post_message"
+          [(ngModel)]="postData.post_message"
+          name="post_message"
+          required
+          rows="5"
+          placeholder="Type your message here..."></textarea>
+      </div>
+
+      <div class="event-section">
+        <div class="form-group inline">
+          <label for="event_button">Is this an event?</label>
+          <select id="event_button" [(ngModel)]="postData.event_button" name="event_button">
+            <option value="No">No, just a regular post</option>
+            <option value="Yes">Yes, it's an event</option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="postData.event_button === 'Yes'">
+          <label for="event_date">Event Date & Time (YYYY-MM-DD HH:MM)</label>
+          <input
+            type="text"
+            id="event_date"
+            [(ngModel)]="postData.event_date"
+            name="event_date"
+            placeholder="2026-02-13 14:30"
+            [required]="postData.event_button === 'Yes'">
+          <span class="hint">Use 24-hour clock. Format: <strong>Year-Month-Day Hour:Minute</strong></span>
+        </div>
+      </div>
+
+      <div class="error-text" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="!postForm.form.valid">
+          Save Changes
+        </button>
+
+        <button
+          type="button"
+          class="btn-cancel"
+          (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+
+    <div class="danger-zone-wrapper" *ngIf="isCreator">
+      <hr class="danger-divider">
+      <div class="danger-zone">
+        <div class="danger-text">
+          <h3>Delete Post</h3>
+          <p>This action will permanently remove this post from the community feed.</p>
+        </div>
+        <button type="button" class="btn-delete" (click)="onDelete()">
+          Delete Post
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

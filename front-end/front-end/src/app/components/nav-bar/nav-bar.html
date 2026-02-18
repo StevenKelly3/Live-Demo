@@ -1,0 +1,20 @@
+<nav class="navbar">
+  <div class="nav-section left">
+    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a routerLink="/my_groups" routerLinkActive="active">My Groups</a>
+    <a routerLink="/search" routerLinkActive="active">Search</a>
+  </div>
+
+  <div class="nav-section center">
+    <h1>Alchemax</h1>
+  </div>
+
+  <div class="nav-section right">
+    <a routerLink="/make_post" routerLinkActive="active">Make Post</a>
+    <a routerLink="/calendar" routerLinkActive="active">Calendar</a>
+
+    <a *ngIf="isLoggedIn()" (click)="onLogout()" class="logout-link">Logout</a>
+
+    <a *ngIf="!isLoggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
+  </div>
+</nav>

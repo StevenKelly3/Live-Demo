@@ -1,0 +1,87 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2>Create a New Post</h2>
+    <p class="subtitle">Enter details below to share with your group.</p>
+
+    <form (ngSubmit)="onSubmit()" #postForm="ngForm">
+
+      <div class="form-group">
+        <label for="group_id">Select Community</label>
+        <select
+          id="group_id"
+          [(ngModel)]="postData.group_id"
+          name="group_id"
+          required>
+          <option value="" disabled selected>-- Choose a group --</option>
+          <option *ngFor="let group of userGroups" [value]="group._id">
+            {{ group.group_name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="post_title">Title</label>
+        <input
+          type="text"
+          id="post_title"
+          [(ngModel)]="postData.post_title"
+          name="post_title"
+          required
+          placeholder="e.g. 24hr Le Mans setup">
+      </div>
+
+      <div class="form-group">
+        <label for="post_message">Message</label>
+        <textarea
+          id="post_message"
+          [(ngModel)]="postData.post_message"
+          name="post_message"
+          required
+          rows="5"
+          placeholder="Type your message here..."></textarea>
+      </div>
+
+      <div class="event-section">
+        <div class="form-group inline">
+          <label for="event_button">Is this an event?</label>
+          <select id="event_button" [(ngModel)]="postData.event_button" name="event_button">
+            <option value="No">No, just a regular post</option>
+            <option value="Yes">Yes, it's an event</option>
+          </select>
+        </div>
+
+        <div class="form-group" *ngIf="postData.event_button === 'Yes'">
+          <label for="event_date">Event Date & Time (YYYY-MM-DD HH:MM)</label>
+          <input
+            type="text"
+            id="event_date"
+            [(ngModel)]="postData.event_date"
+            name="event_date"
+            placeholder="2026-02-13 14:30"
+            [required]="postData.event_button === 'Yes'">
+          <span class="hint">Use 24-hour clock. Format: <strong>Year-Month-Day Hour:Minute</strong></span>
+        </div>
+      </div>
+
+      <div class="error-text" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="!postForm.form.valid">
+          Publish Post
+        </button>
+
+        <button
+          type="button"
+          class="btn-cancel"
+          routerLink="/home">
+          Discard
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2>Start a New Community</h2>
+    <p class="subtitle">Create a space for people to share racing updates and events.</p>
+
+    <form (ngSubmit)="onSubmit()" #groupForm="ngForm">
+      <div class="form-group">
+        <label for="group_name">Group Name</label>
+        <input
+          type="text"
+          id="group_name"
+          [(ngModel)]="groupData.group_name"
+          name="group_name"
+          required
+          placeholder="e.g. Newry Walkers">
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+        <input
+          type="text"
+          id="category"
+          [(ngModel)]="groupData.category"
+          name="category"
+          required
+          placeholder="e.g. Casual Walking">
+      </div>
+
+      <div class="form-group">
+        <label>Group Privacy</label>
+        <div class="privacy-buttons">
+          <label>
+            <input type="radio" [(ngModel)]="groupData.is_public" name="is_public" value="Public" required>
+            Public
+          </label>
+          <label style="margin-left: 20px;">
+            <input type="radio" [(ngModel)]="groupData.is_public" name="is_public" value="Private" required>
+            Private
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input
+          type="text"
+          id="location"
+          [(ngModel)]="groupData.location"
+          name="location"
+          required
+          placeholder="e.g. Newry, NI">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          [(ngModel)]="groupData.description"
+          name="description"
+          required
+          rows="4"
+          placeholder="What is this group about?"></textarea>
+      </div>
+
+      <div class="error-text" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="!groupForm.form.valid">
+          Create Group
+        </button>
+        <button
+          type="button"
+          class="btn-cancel"
+          (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
