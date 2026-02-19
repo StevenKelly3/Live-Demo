@@ -1,3 +1,4 @@
+/* --- DESKTOP STYLES --- */
 .view-container {
   max-width: 800px;
   margin: 40px auto;
@@ -90,8 +91,6 @@
   text-align: center;
   margin-top: 20px;
 }
-
-/* --- COMMENT SECTION STYLES --- */
 
 .section-divider {
   margin: 40px 0;
@@ -192,7 +191,6 @@
   font-style: italic;
 }
 
-/* Inline Edit Styles */
 .inline-edit-area {
   display: flex;
   flex-direction: column;
@@ -228,4 +226,134 @@
   padding: 4px 12px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.success-box {
+  background: #d4edda;
+  color: #155724;
+  padding: 15px;
+  border-radius: 4px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.rsvp-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.rsvp-btn:hover {
+  background: #218838;
+  transform: scale(1.05);
+}
+
+.attending-badge {
+  color: #28a745;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.creator-attendees {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px dashed #ccc;
+}
+
+.toggle-list-btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.attendee-list {
+  margin-top: 10px;
+  background: white;
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.attendee-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.attendee-list li {
+  padding: 5px 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+/* --- MOBILE STYLES --- */
+@media screen and (max-width: 768px) {
+  .view-container {
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+
+  .post-detail-card {
+    padding: 20px;
+    border: none;
+    box-shadow: none;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .author-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .edit-post-btn {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .main-text {
+    font-size: 1rem;
+  }
+
+  .event-info {
+    padding: 15px;
+  }
+
+  .rsvp-btn {
+    width: 100%;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .back-btn {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .submit-comment-btn {
+    width: 100%;
+  }
+
+  .comment-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
 }

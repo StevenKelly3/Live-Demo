@@ -1,3 +1,4 @@
+/* --- DESKTOP STYLES --- */
 .groups-container {
   max-width: 1100px;
   margin: 20px auto;
@@ -130,7 +131,7 @@ h1 {
 }
 
 .btn-create-permanent {
-  background-color: #28a745; /* Success Green */
+  background-color: #28a745;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -150,4 +151,51 @@ h1 {
 .plus-icon {
   font-size: 1.2rem;
   line-height: 1;
+}
+
+/* --- MOBILE STYLES --- */
+@media screen and (max-width: 768px) {
+  .groups-container {
+    padding: 10px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+    border-bottom: none;
+  }
+
+  h1 {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+  }
+
+  .btn-create-permanent {
+    width: 100%;
+    justify-content: center;
+    padding: 15px;
+  }
+
+  .section-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .group-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .group-card:hover {
+    transform: none; /* Better stability on touch devices */
+  }
+
+  .card-footer {
+    padding: 15px;
+    text-align: center;
+  }
+
+  .section-divider {
+    margin: 30px 0;
+  }
 }

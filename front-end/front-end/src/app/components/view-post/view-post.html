@@ -1,6 +1,12 @@
 <div class="view-container">
-  <div class="post-detail-card" *ngIf="post.post_title">
+  <div *ngIf="successMessage" class="success-box">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="error-box">
+    {{ errorMessage }}
+  </div>
 
+  <div class="post-detail-card" *ngIf="post.post_title">
     <div class="header">
       <div class="title-section">
         <h2>{{ post.post_title }}</h2>
@@ -13,7 +19,6 @@
 
     <div class="author-bar">
       <span>Posted by: <strong>{{ post.creator_username }}</strong></span>
-
       <button *ngIf="isCreator"
               class="edit-post-btn"
               [routerLink]="['/groups', groupId, postId, 'edit']">
@@ -24,8 +29,38 @@
     <p class="main-text">{{ post.post_message }}</p>
 
     <div class="event-info" *ngIf="post.event_button === 'Yes'">
-      <h3>Event Details</h3>
-      <p>This post is an invite to an event on <strong>{{ post.event_date | date:'dd/MM/yyyy, HH:mm' }}</strong></p>
+      <div class="event-header">
+        <h3>Event Invitation</h3>
+        <p>This post is an invite to an event on: <strong>{{ post.event_date | date:'dd/MM/yyyy, HH:mm' }}</strong></p>
+      </div>
+
+      <div class="event-actions">
+        <button *ngIf="!isAttending"
+                class="rsvp-btn"
+                (click)="rsvpToEvent()">
+          Accept Invitation
+        </button>
+
+        <div *ngIf="isAttending" class="attending-status">
+          <span class="attending-badge">✓ You are attending this event</span>
+        </div>
+      </div>
+
+      <div class="creator-attendees" *ngIf="isCreator">
+        <hr class="dashed-divider">
+        <button class="toggle-list-btn" (click)="toggleAttendees()">
+          {{ showAttendees ? 'Hide' : 'View' }} Attendee List ({{ attendeesList?.length || 0 }})
+        </button>
+
+        <div class="attendee-list" *ngIf="showAttendees">
+          <ul>
+            <li *ngFor="let name of attendeesList">{{ name }}</li>
+            <li *ngIf="attendeesList?.length === 0" class="no-attendees">
+              No one has RSVP'd yet.
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <div class="actions">
@@ -84,9 +119,5 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div *ngIf="errorMessage" class="error-box">
-    {{ errorMessage }}
   </div>
 </div>

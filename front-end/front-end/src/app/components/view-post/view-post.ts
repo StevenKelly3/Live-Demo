@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class ViewPost implements OnInit {
   post: any = {};
   errorMessage: string = "";
+  successMessage: string = "";
   isCreator: boolean = false;
   groupId: string = "";
   postId: string = "";
@@ -21,6 +22,9 @@ export class ViewPost implements OnInit {
   newCommentText: string = "";
   editingCommentId: string | null = null;
   editedCommentText: string = "";
+  isAttending: boolean = false;
+  attendeesList: string[] = [];
+  showAttendees: boolean = false;
 
   constructor(
     private webService: WebService,
@@ -41,8 +45,18 @@ export class ViewPost implements OnInit {
       this.webService.getSinglePost(this.groupId, this.postId).subscribe({
         next: (data: any) => {
           this.post = data;
-          if (this.currentUserId === data.creator) {
-            this.isCreator = true;
+
+          // Check if current user is creator
+          this.isCreator = this.currentUserId === data.creator;
+
+          // CHECK ATTENDANCE: Check if current user is already in the attendees array
+          if (data.attendees && this.currentUserId) {
+            this.isAttending = data.attendees.includes(this.currentUserId);
+          }
+
+          // If the user is the creator, load the attendee list for display
+          if (this.isCreator) {
+            this.loadAttendees();
           }
         },
         error: (err: any) => {
@@ -50,6 +64,33 @@ export class ViewPost implements OnInit {
         }
       });
     }
+  }
+
+  // RSVP Logic
+  rsvpToEvent() {
+    this.webService.rsvpToEvent(this.groupId, this.postId).subscribe({
+      next: (res: any) => {
+        this.successMessage = "You're on the list!";
+        this.isAttending = true;
+        this.loadPost(); // Refresh data
+      },
+      error: (err: any) => {
+        this.errorMessage = err.error.message || "Failed to RSVP.";
+      }
+    });
+  }
+
+  loadAttendees() {
+    this.webService.getAttendees(this.groupId, this.postId).subscribe({
+      next: (data: any) => {
+        this.attendeesList = data.attendees;
+      },
+      error: () => console.error("Could not load attendees list")
+    });
+  }
+
+  toggleAttendees() {
+    this.showAttendees = !this.showAttendees;
   }
 
   // CREATE COMMENT

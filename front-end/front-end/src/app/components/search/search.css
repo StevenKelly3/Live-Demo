@@ -1,3 +1,4 @@
+/* --- DESKTOP STYLES --- */
 .search-container {
   max-width: 900px;
   margin: 40px auto;
@@ -92,7 +93,6 @@
   margin-bottom: 20px;
 }
 
-/* Button Styling */
 .btn-view, .btn-join, .btn-request {
   width: 100%;
   border: 1px solid #ddd;
@@ -142,4 +142,40 @@
   border-radius: 4px;
   text-align: center;
   margin-bottom: 20px;
+}
+
+/* --- MOBILE STYLES --- */
+@media screen and (max-width: 768px) {
+  .search-container {
+    margin: 20px auto;
+    padding: 0 10px;
+  }
+
+  .search-bar-wrapper {
+    padding: 15px;
+    margin-bottom: 25px;
+  }
+
+  .input-group {
+    flex-direction: column; /* Stack select, input, and button */
+  }
+
+  .search-type-select,
+  .search-input,
+  .btn-search {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .btn-search {
+    padding: 12px; /* Add height for easier tapping */
+  }
+
+  .results-grid {
+    grid-template-columns: 1fr; /* Single column results */
+  }
+
+  .card-header h3 {
+    font-size: 1.1rem;
+  }
 }

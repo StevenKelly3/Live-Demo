@@ -1,7 +1,7 @@
-/* Center the container on the screen */
+/* --- DESKTOP STYLES --- */
 .login-container {
   max-width: 400px;
-  margin: 100px auto; /* More top margin to center vertically on the page */
+  margin: 100px auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -27,7 +27,7 @@ input {
   padding: 8px;
   border: 1px solid #999;
   border-radius: 4px;
-  box-sizing: border-box; /* Crucial for keeping width at 100% */
+  box-sizing: border-box;
 }
 
 .login-btn {
@@ -59,4 +59,28 @@ a {
   margin-top: 10px;
   color: #007bff;
   text-decoration: none;
+}
+
+/* --- MOBILE STYLES --- */
+@media screen and (max-width: 768px) {
+  .login-container {
+    max-width: 90%;
+    margin: 40px auto;
+    padding: 25px 15px;
+    border: 1px solid #eee;
+  }
+
+  input {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .login-btn {
+    padding: 14px;
+    font-size: 1.1rem;
+  }
+
+  a {
+    padding: 10px 0;
+  }
 }

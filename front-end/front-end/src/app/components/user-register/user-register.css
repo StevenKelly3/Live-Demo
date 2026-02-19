@@ -1,4 +1,4 @@
-/* Center the whole form on the page */
+/* --- DESKTOP STYLES --- */
 .register-container {
   max-width: 400px;
   margin: 50px auto;
@@ -12,7 +12,6 @@ h2 {
   text-align: center;
 }
 
-/* Give each input and label its own line */
 .form-group {
   margin-bottom: 15px;
 }
@@ -28,11 +27,9 @@ input {
   padding: 8px;
   border: 1px solid #999;
   border-radius: 4px;
-  /* This ensures padding doesn't make the input wider than the container */
   box-sizing: border-box;
 }
 
-/* Button styling */
 .register-btn {
   width: 100%;
   padding: 10px;
@@ -48,7 +45,6 @@ input {
   background-color: #0056b3;
 }
 
-/* Text and Links at the bottom */
 .links {
   text-align: center;
   margin-top: 15px;
@@ -63,4 +59,28 @@ a {
   margin-top: 10px;
   color: #007bff;
   text-decoration: none;
+}
+
+/* --- MOBILE STYLES --- */
+@media screen and (max-width: 768px) {
+  .register-container {
+    max-width: 90%;
+    margin: 20px auto;
+    padding: 20px 15px;
+    border: 1px solid #eee;
+  }
+
+  input {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .register-btn {
+    padding: 14px;
+    font-size: 1.1rem;
+  }
+
+  a {
+    padding: 10px 0;
+  }
 }

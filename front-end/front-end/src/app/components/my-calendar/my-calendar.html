@@ -1,0 +1,38 @@
+<div class="calendar-container">
+  <div class="calendar-header">
+    <h1>My Personal Calendar</h1>
+    <p>All the community events you've RSVP'd to.</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-box">{{ errorMessage }}</div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    Fetching your schedule...
+  </div>
+
+  <div class="events-grid" *ngIf="!isLoading && calendarEvents.length > 0">
+    <div class="event-card" *ngFor="let event of calendarEvents">
+      <div class="event-date-badge">
+        <span class="day">{{ event.event_date | date:'dd' }}</span>
+        <span class="month">{{ event.event_date | date:'MMM' }}</span>
+      </div>
+
+      <div class="event-details">
+        <h3>{{ event.post_title }}</h3>
+        <p class="community-tag">Community: <strong>{{ event.group_name }}</strong></p>
+        <p class="time-tag">Time: {{ event.event_date | date:'HH:mm' }}</p>
+        <p class="host-tag">Hosted by: {{ event.creator_username }}</p>
+
+        <button class="view-btn" [routerLink]="['/groups', event.group_id, event._id]">
+          View Full Post
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-calendar" *ngIf="!isLoading && calendarEvents.length === 0">
+    <h2>Your calendar is empty</h2>
+    <p>Browse your communities and RSVP to some events to see them here.</p>
+    <button class="browse-btn" routerLink="/home">Browse Home Feed</button>
+  </div>
+</div>

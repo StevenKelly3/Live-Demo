@@ -1,3 +1,4 @@
+/* --- DESKTOP STYLES --- */
 .group-page-container {
   max-width: 1100px;
   margin: 40px auto;
@@ -92,7 +93,6 @@
   font-size: 0.9rem;
 }
 
-/* Sidebar Styling */
 .sidebar-section {
   display: flex;
   flex-direction: column;
@@ -119,7 +119,6 @@
   margin-bottom: 15px;
 }
 
-/* Button Styling */
 .btn-edit-settings {
   background: #f8f9fa;
   border: 1px solid #ddd;
@@ -172,4 +171,84 @@
   padding: 15px;
   border-radius: 4px;
   margin-bottom: 20px;
+}
+
+/* --- MOBILE STYLES --- */
+@media screen and (max-width: 768px) {
+  .group-page-container {
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+
+  .group-info-card {
+    padding: 15px;
+    text-align: left; /* Keep text left-aligned for better readability on narrow screens */
+  }
+
+  .header-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .title-area {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .title-area h1 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+
+  .owner-controls {
+    flex-direction: column; /* Stack Edit and Manage buttons vertically */
+    width: 100%;
+    gap: 10px;
+  }
+
+  .btn-edit-settings,
+  .btn-manage-requests {
+    width: 100%; /* Make buttons full width for easier tapping */
+    justify-content: center;
+    padding: 12px;
+    box-sizing: border-box;
+  }
+
+  .content-split {
+    grid-template-columns: 1fr; /* Force single column */
+    gap: 20px;
+  }
+
+  .feed-header {
+    flex-direction: column; /* Stack "Community Feed" and "Create Post" button */
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .btn-post {
+    width: 100%; /* Full width Create Post button */
+    text-align: center;
+    padding: 12px;
+  }
+
+  .post-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .post-card {
+    padding: 15px;
+  }
+
+  .sidebar-section {
+    order: 2; /* Sidebar (Membership/Leave) moves to bottom */
+  }
+
+  .feed-section {
+    order: 1; /* Feed stays at the top */
+  }
 }

@@ -1,3 +1,4 @@
+/* --- DESKTOP STYLES --- */
 .home-container {
   max-width: 500px;
   margin: 30px auto;
@@ -82,7 +83,7 @@ a:hover {
 }
 
 .post-meta strong {
-  color: #007bff; /* Highlights names in blue */
+  color: #007bff;
 }
 
 .event-tag {
@@ -109,4 +110,36 @@ a:hover {
   background-color: #007bff;
   color: white !important;
   text-decoration: none !important;
+}
+
+/* --- MOBILE STYLES --- */
+@media screen and (max-width: 768px) {
+  .home-container {
+    max-width: 100%;
+    margin: 10px;
+    padding: 15px;
+    border: none;
+  }
+
+  .post-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .date-text {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    width: 100%;
+  }
+
+  .post-card {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+
+  .view-link {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
 }

@@ -1,3 +1,4 @@
+/* --- DESKTOP STYLES --- */
 .manage-wrapper {
   max-width: 800px;
   margin: 40px auto;
@@ -108,7 +109,48 @@
   color: #666;
 }
 
-.empty-state .icon {
-  font-size: 3rem;
-  margin-bottom: 15px;
+/* --- MOBILE STYLES --- */
+@media screen and (max-width: 768px) {
+  .manage-wrapper {
+    margin: 20px auto;
+    padding: 0 10px;
+  }
+
+  .header-card {
+    text-align: center;
+  }
+
+  .btn-back {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    border-radius: 4px;
+  }
+
+  .request-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 25px 15px;
+  }
+
+  .user-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-buttons {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .btn-accept, .btn-reject {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+  }
 }

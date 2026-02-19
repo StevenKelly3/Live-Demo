@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class Auth {
   // Basically the url to access the API
-  private apiUrl = 'http://localhost:5000/api'
+  private apiUrl = 'https://alchemaxdemo.co.uk/api'
 
   constructor(private http: HttpClient) {}
 

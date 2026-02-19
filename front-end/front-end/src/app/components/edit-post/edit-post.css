@@ -1,3 +1,4 @@
+/* --- DESKTOP STYLES --- */
 .form-container {
   display: flex;
   flex-direction: column;
@@ -108,7 +109,6 @@ input:disabled {
   text-align: center;
 }
 
-/* Danger Zone */
 .danger-divider {
   margin: 30px 0;
   border: 0;
@@ -147,4 +147,41 @@ input:disabled {
   font-weight: bold;
   cursor: pointer;
   white-space: nowrap;
+}
+
+/* --- MOBILE STYLES --- */
+@media screen and (max-width: 768px) {
+  .form-container {
+    padding: 10px;
+  }
+
+  .form-card {
+    padding: 20px;
+    border: none;
+  }
+
+  .inline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-submit, .btn-cancel {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .danger-zone {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .btn-delete {
+    width: 100%;
+    white-space: normal;
+  }
 }

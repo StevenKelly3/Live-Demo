@@ -16,6 +16,7 @@ import { EditGroup } from './components/edit-group/edit-group';
 import { EditPost } from './components/edit-post/edit-post';
 import { Search } from './components/search/search';
 import { ManageRequests } from './components/manage-requests/manage-requests';
+import { MyCalendar } from './components/my-calendar/my-calendar';
 
 export const routes: Routes = [
   {
@@ -91,6 +92,12 @@ export const routes: Routes = [
     path: 'search',
     component: Search
   },
+
+  // User Calendar
+  {
+    path: 'calendar',
+    component: MyCalendar
+  }
 
 
 

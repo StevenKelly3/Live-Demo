@@ -348,3 +348,19 @@ ADDITIONAL CHANGES:
 	Got it from https://pypi.org/project/python-dotenv/
 2) Added a .gitignore file to ignore the .env file
 3) Updated globals to ensure that the secret key is grabbed from the .env file
+
+# version 1.5.2 - RSVP and Calendar
+
+1) Created a new blueprint allowing users to RSVP to events, and view their Calendar
+2) Created a new component allowing users to see their events
+3) Edited view_post to allow event creators to see who is going to their event
+
+# version 1.5.3 - Mobile Design 
+
+So, In version 1.5.1, I used hostinger's VSP service to host the website, if you are reading this and I forget to tell you in AT4, the link is below.
+
+https://alchemaxdemo.co.uk/ (YES I GOT A DOMAIN TOO, I SET IT UP WRONG ORIGINALLY)
+
+Whilst testing (and getting some friends to test it), one responce that was clear was the mobile format was ugly.
+
+This version just is changes to the .css file to fix this. No real big changes, just additions

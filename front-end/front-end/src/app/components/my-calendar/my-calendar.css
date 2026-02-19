@@ -1,0 +1,147 @@
+/* --- DESKTOP STYLES --- */
+.calendar-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.calendar-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.calendar-header h1 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.events-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.event-card {
+  display: flex;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.event-card:hover {
+  transform: translateX(10px);
+  border-color: #333;
+}
+
+.event-date-badge {
+  background: transparent;
+  color: #000;
+  min-width: 80px;
+  height: 80px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 25px;
+}
+
+.event-date-badge .day {
+  font-size: 1.8rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.event-date-badge .month {
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+.event-details h3 {
+  margin: 0 0 10px 0;
+  color: #222;
+}
+
+.event-details p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.view-btn {
+  margin-top: 15px;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.view-btn:hover {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.empty-calendar {
+  text-align: center;
+  padding: 100px 20px;
+  background: #fdfdfd;
+  border: 2px dashed #ccc;
+  border-radius: 15px;
+}
+
+.browse-btn {
+  margin-top: 20px;
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* --- MOBILE STYLES --- */
+@media screen and (max-width: 768px) {
+  .calendar-container {
+    margin: 20px auto;
+    padding: 0 10px;
+  }
+
+  .calendar-header {
+    margin-bottom: 25px;
+  }
+
+  .calendar-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .event-card {
+    flex-direction: column; /* Stack date badge above details */
+    align-items: center;
+    text-align: center;
+    padding: 25px 15px;
+  }
+
+  .event-card:hover {
+    transform: none; /* Disable translation effect on mobile for better stability */
+  }
+
+  .event-date-badge {
+    margin-right: 0;
+    margin-bottom: 20px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .view-btn {
+    width: 100%; /* Full width button for thumbs */
+    padding: 12px;
+  }
+}
