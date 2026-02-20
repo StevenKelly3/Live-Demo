@@ -1,0 +1,78 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2>Edit Profile</h2>
+    <p class="subtitle">Update your personal information below.</p>
+
+    <form (ngSubmit)="onSubmit()" #profileForm="ngForm">
+
+      <div class="error-text" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+      <div class="success-text" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          [(ngModel)]="profileData.firstName"
+          required
+          placeholder="Enter your first name">
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          [(ngModel)]="profileData.lastName"
+          required
+          placeholder="Enter your last name">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="profileData.email"
+          required
+          placeholder="email@example.com">
+        <span class="hint">We'll use this for account recovery and notifications.</span>
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="!profileForm.form.valid">
+          Save Changes
+        </button>
+        <button
+          type="button"
+          class="btn-cancel"
+          (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+
+    <div class="danger-zone-wrapper">
+      <hr class="danger-divider">
+      <div class="danger-zone">
+        <div class="danger-text">
+          <h3>Delete Account</h3>
+          <p>Permanently remove your account and all associated data. <strong>This cannot be undone.</strong></p>
+        </div>
+        <button type="button" class="btn-delete" (click)="onDelete()">
+          Delete Account
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

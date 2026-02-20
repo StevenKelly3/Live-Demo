@@ -38,6 +38,8 @@ databaseNotHealthyMessage = "Database is not responding"
 logoutFailMessage = "Logout fail"
 deleteAccountUnableToFindAccountMessage = "Can not find account"
 deleteAccountUnableToDelete = "Error, unable to delete account"
+missingFormData = "All required form data must be entered"
+oldPasswordIncorrectMessage = "Change password fail, current password incorrect"
 
 
 # Success
@@ -321,20 +323,37 @@ def delete_account(user_id):
     ok, err = mongo_required()
     if not ok:
         return err
-
-    # TODO - LOG MESSAGES NEED ADDED, username needs passed from jwt token
-
+    
     ### -- GET USER TOKEN -- ##
     try:
         user_object_id = ObjectId(user_id)
+        user_str_id = str(user_id) # for deleting group
     except:
         return make_response( jsonify( { "error" : "Invalid token"}), 400)
     
     ## -- DELETE USER -- ##
     try:
-        result = users.delete_one(
-            {"_id" : ObjectId(user_object_id)},
-        )
+        # get the groups owned by the user
+        owned_groups = globals.db.groups.find({"group_owner": user_str_id})
+        owned_group_ids = [str(g['_id']) for g in owned_groups]
+
+        # Delete all posts belonging to those groups
+        if owned_group_ids:
+            globals.db.posts.delete_many({"group_id": {"$in": owned_group_ids}})
+
+        # Delete the groups themselves
+        globals.db.groups.delete_many({"group_owner": user_str_id})
+
+        # Delete all individual posts
+        globals.db.posts.delete_many({"creator": user_str_id})
+
+        # Delete any comments
+        globals.db.comments.delete_many({"user_id": user_str_id})
+
+        # Delete the user
+        result = users.delete_one({"_id" : user_object_id})
+
+
 
     except:
         logsMessage = {
@@ -369,3 +388,177 @@ def delete_account(user_id):
         controlLogs.insert_one(logsMessage)
 
         return make_response(jsonify({"message" : "Can not find the user"}), 404)
+    
+### --- GET USERS PROFILE --- ###
+'''
+    This will grab the users profile and return it's detils for editing the profile
+
+    EXAMPLE URL: http://localhost:5000/api/profile
+'''
+@auth_bp.route("/api/profile", methods=['GET'])
+@jwt_required
+def get_profile(user_id):
+    ok, err = mongo_required()
+    if not ok: return err
+
+    user = users.find_one({"_id": ObjectId(user_id)}, {"password": 0}) # Don't return the hashed password
+    if not user:
+        return make_response(jsonify({"error": "User not found"}), 404)
+
+    user["_id"] = str(user["_id"])
+    return make_response(jsonify(user), 200)
+
+
+### --- EDIT PROFILE --- ###
+@auth_bp.route("/api/profile/edit", methods=['PUT'])
+@jwt_required
+def edit_profile(user_id):
+    ok, err = mongo_required()
+    if not ok: return err
+
+    try:
+        # Get the form data
+        firstName = request.form.get("firstName")
+        lastName = request.form.get("lastName")
+        email = request.form.get("email")
+
+        if not firstName or not lastName or not email:
+
+            # Add to logs
+            logsMessage = {
+                "Date/Time": datetime.datetime.now(datetime.UTC),
+                "Action": "Edit Profile",
+                "Account": g.current_username,
+                "Message": missingFormData
+            }
+            controlLogs.insert_one(logsMessage)
+
+            return make_response(jsonify({"error": "Missing form data"}), 400)
+        
+        # Check if email is already in use
+        if users.find_one({'email': email, '_id': {'$ne': ObjectId(user_id)}}):
+            # Add to logs
+            logsMessage = {
+                "Date/Time": datetime.datetime.now(datetime.UTC),
+                "Action": "Edit Profile",
+                "Account": g.current_username,
+                "Message": emailInUseMessage
+            }
+            controlLogs.insert_one(logsMessage)
+            return make_response(jsonify({"error": emailInUseMessage}), 409)
+        
+        # Perform update
+        result = users.update_one(
+            {"_id": ObjectId(user_id)},
+            {"$set": {
+                "firstName": firstName,
+                "lastName": lastName,
+                "email": email
+            }}
+        )
+
+        if result.matched_count == 1:
+            # Add to logs
+            logsMessage = {
+                "Date/Time": datetime.datetime.now(datetime.UTC),
+                "Action": "Edit Profile",
+                "Account": g.current_username,
+                "Message": accountChangesMadeMessage
+            }
+            controlLogs.insert_one(logsMessage)
+            return make_response(jsonify({"message": accountChangesMadeMessage}), 200)
+        
+        return make_response(jsonify({"error": "Unable to update profile"}), 404)
+
+
+    except Exception as e:
+        
+        # Add to logs
+        logsMessage = {
+            "Date/Time" : datetime.datetime.now(datetime.UTC),
+            "Action" : "Edit Profile",
+            "Account" : g.current_username,
+            "Message" : str(e)
+        }
+        controlLogs.insert_one(logsMessage)
+
+        return make_response(jsonify({"error": str(e)}), 503)
+
+
+### --- CHANGE PASSWORD --- ###
+'''
+    This allows a user to change their password for their account
+
+    EXAMPLE URL: http://localhost:5000/api/profile/change_password
+'''
+@auth_bp.route("/api/profile/change_password", methods=['PUT'])
+@jwt_required
+def change_password(user_id):
+    ok, err = mongo_required()
+    if not ok: return err
+
+    try:
+        # Grabbing form data
+        old_password = request.form.get("old_password")
+        new_password = request.form.get("new_password")
+        confirm_password = request.form.get("confirm_password")
+
+        if not old_password or not new_password or not confirm_password:
+            return make_response(jsonify({"error": missingFormData}), 400)
+        
+        # Get the user
+        user = users.find_one({"_id": ObjectId(user_id)})
+        if not user:
+            return make_response(jsonify({"error": "User not found"}), 404)
+        
+        # Verify the old password
+        if not bcrypt.checkpw(bytes(old_password, 'UTF-8'), user["password"]):
+            # Log failure
+            logsMessage = {
+                "Date/Time": datetime.datetime.now(datetime.UTC),
+                "Action": "Change Password",
+                "Account": g.current_username,
+                "Message": oldPasswordIncorrectMessage
+            }
+            controlLogs.insert_one(logsMessage)
+            return make_response(jsonify({"error": oldPasswordIncorrectMessage}), 401)
+        
+        # Check if the passwords match
+        if new_password != confirm_password:
+            return make_response(jsonify({"error": passwordsDontMatchMessage}), 409)
+        
+        # Hash and Update
+        hashed_password = bcrypt.hashpw(
+            bytes(new_password, 'UTF-8'),
+            bcrypt.gensalt()
+        )
+
+        users.update_one(
+            {"_id": ObjectId(user_id)},
+            {"$set": {"password": hashed_password}}
+        )
+
+        # Log success
+        logsMessage = {
+            "Date/Time": datetime.datetime.now(datetime.UTC),
+            "Action": "Change Password",
+            "Account": g.current_username,
+            "Message": "Password updated successfully"
+        }
+        controlLogs.insert_one(logsMessage)
+
+        return make_response(jsonify({"message": "Password updated successfully"}), 200)
+
+    
+    except Exception as e:
+        
+        # Add to logs
+        logsMessage = {
+            "Date/Time" : datetime.datetime.now(datetime.UTC),
+            "Action" : "Edit Profile",
+            "Account" : g.current_username,
+            "Message" : str(e)
+        }
+        controlLogs.insert_one(logsMessage)
+
+        return make_response(jsonify({"error": str(e)}), 503)

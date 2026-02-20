@@ -52,8 +52,7 @@ export class EditPost implements OnInit {
           post_title: data.post_title,
           post_message: data.post_message,
           event_button: data.event_button,
-          event_date: data.event_date ? data.event_date.substring(0, 16) : '' // Format for datetime-local input
-        };
+          event_date: data.event_date ? data.event_date.replace('T', ' ').substring(0, 16) : ''        };
       },
       error: (err) => this.errorMessage = "Could not load post details."
     });

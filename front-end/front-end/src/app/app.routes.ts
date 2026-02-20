@@ -17,6 +17,8 @@ import { EditPost } from './components/edit-post/edit-post';
 import { Search } from './components/search/search';
 import { ManageRequests } from './components/manage-requests/manage-requests';
 import { MyCalendar } from './components/my-calendar/my-calendar';
+import { EditProfile } from './components/edit-profile/edit-profile';
+import { ChangePassword } from './components/change-password/change-password';
 
 export const routes: Routes = [
   {
@@ -97,6 +99,18 @@ export const routes: Routes = [
   {
     path: 'calendar',
     component: MyCalendar
+  },
+
+  // Edit Profile
+  {
+    path: 'edit-profile',
+    component: EditProfile
+  },
+
+  // Change password
+  {
+    path: 'change-password',
+    component: ChangePassword
   }
 
 

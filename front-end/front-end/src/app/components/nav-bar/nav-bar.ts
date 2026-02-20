@@ -11,6 +11,8 @@ import { Auth } from '../../services/auth';
 })
 export class NavBar {
 
+  showDropdown: boolean = false;
+
   constructor(private authService: Auth, private router: Router) {}
 
   isLoggedIn(): boolean {
@@ -18,7 +20,12 @@ export class NavBar {
     return localStorage.getItem('token') !== null;
   }
 
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
+
   onLogout() {
+    this.showDropdown = false;
     this.authService.logout().subscribe({
       next: () => {
         localStorage.removeItem('token'); // Clear locally AFTER backend blacklists it

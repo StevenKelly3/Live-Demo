@@ -396,7 +396,7 @@ def edit_post(user_id, group_id, post_id):
                 return make_response(jsonify({"error": "Event date must be provided"}), 404)
             
             try:
-                formattedEventDate = datetime.datetime.strptime(eventDateStr, '%Y-%m-%dT%H:%M')
+                formattedEventDate = datetime.datetime.strptime(eventDateStr, '%Y-%m-%d %H:%M')
             except ValueError:
 
                 # Add to logs

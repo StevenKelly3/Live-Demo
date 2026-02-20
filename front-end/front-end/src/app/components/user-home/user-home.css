@@ -137,9 +137,14 @@ a:hover {
     margin-bottom: 15px;
   }
 
+  .event-box {
+    line-height: 1.6;
+  }
+
   .view-link {
     width: 100%;
     text-align: center;
     padding: 12px;
+    box-sizing: border-box;
   }
 }

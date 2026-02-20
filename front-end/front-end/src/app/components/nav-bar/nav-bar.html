@@ -13,7 +13,18 @@
     <a routerLink="/make_post" routerLinkActive="active">Make Post</a>
     <a routerLink="/calendar" routerLinkActive="active">Calendar</a>
 
-    <a *ngIf="isLoggedIn()" (click)="onLogout()" class="logout-link">Logout</a>
+    <div *ngIf="isLoggedIn()" class="profile-dropdown">
+      <button (click)="toggleDropdown()" class="profile-btn">
+        Profile ▼
+      </button>
+
+      <div *ngIf="showDropdown" class="dropdown-menu">
+        <a routerLink="/edit-profile" (click)="showDropdown = false">Edit Profile</a>
+        <a routerLink="/change-password" (click)="showDropdown = false">Change Password</a>
+        <hr>
+        <a (click)="onLogout()" class="logout-item">Logout</a>
+      </div>
+    </div>
 
     <a *ngIf="!isLoggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
   </div>

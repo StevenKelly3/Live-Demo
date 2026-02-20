@@ -205,7 +205,7 @@ def view_my_calendar(user_id):
 
             my_calendar.append(event)
 
-            return make_response(jsonify({"calendar": my_calendar}), 200)
+        return make_response(jsonify({"calendar": my_calendar}), 200)
 
     
     except Exception as e:

@@ -364,3 +364,20 @@ https://alchemaxdemo.co.uk/ (YES I GOT A DOMAIN TOO, I SET IT UP WRONG ORIGINALL
 Whilst testing (and getting some friends to test it), one responce that was clear was the mobile format was ugly.
 
 This version just is changes to the .css file to fix this. No real big changes, just additions
+
+# version 1.5.4 - Bug Fixes
+Spotted two bugs when testing version 1.5.3
+	1) Calendar was only showing one result. The return statement was in the for loop causing it to run Once
+	2) The Deleting Post Mystery - Easy fix this one, when developing this in an earlier version, I was calling the delete endpoint and not the edit.
+	3) Edited the user-home.css mobile layout to fix an overlapping issue
+	
+	
+# version 1.5.5 - Edit Profile
+
+A few changes were made to make this possible
+	1) Edited auth.py to add in the ability for users to edit and delete their Account, along with updating their password
+	2) Created the component allowing users to edit and delete their Account
+	3) Changed the nav-bar so when a user logs in, it now shows a profile drop-down instead of a logout button.
+		This drop down has three options, edit profile, change password, and logout
+	4) Created a new component allowing users to edit their password
+	

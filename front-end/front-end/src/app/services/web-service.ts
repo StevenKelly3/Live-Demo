@@ -115,7 +115,7 @@ export class WebService {
       formData.append('event_date', postData.event_date);
     }
 
-    return this.http.delete(`https://alchemaxdemo.co.uk/api/groups/${groupId}/${postId}/delete_post`, { headers });
+    return this.http.put(`https://alchemaxdemo.co.uk/api/groups/${groupId}/${postId}/edit_post`, formData, { headers });
   }
 
   // Delete an existing post
@@ -246,6 +246,45 @@ export class WebService {
     const headers = new HttpHeaders().set('x-access-token', token || '');
 
     return this.http.get('https://alchemaxdemo.co.uk/api/my_calendar', { headers });
+  }
+
+  // Get user details
+  getUserProfile() {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('x-access-token', token || '');
+    return this.http.get('https://alchemaxdemo.co.uk/api/profile', { headers });
+  }
+
+  // Update profile
+  updateProfile(profileData: any) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('x-access-token', token || '');
+
+    const formData = new FormData();
+    formData.append('firstName', profileData.firstName);
+    formData.append('lastName', profileData.lastName);
+    formData.append('email', profileData.email);
+
+    return this.http.put('https://alchemaxdemo.co.uk/api/profile/edit', formData, { headers: headers });
+  }
+
+  // Delete profile
+  deleteAccount() {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('x-access-token', token || '');
+    return this.http.delete('https://alchemaxdemo.co.uk/api/delete_account', { headers: headers });
+  }
+
+  changePassword(passwordData: any) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('x-access-token', token || '');
+
+    const formData = new FormData();
+    formData.append('old_password', passwordData.old_password);
+    formData.append('new_password', passwordData.new_password);
+    formData.append('confirm_password', passwordData.confirm_password);
+
+    return this.http.put('https://alchemaxdemo.co.uk/api/profile/change_password', formData, { headers });
   }
 
 }
